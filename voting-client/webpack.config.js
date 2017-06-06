@@ -1,23 +1,33 @@
+var webpack = require('webpack');
+
 module.exports = {
   entry: [
-    './src/index.js'
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    './src/index.jsx'
   ],
   module: {
     loaders: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel'
+      loader: 'react-hot-loader!babel-loader'
     }]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    /* Error thrown: issue resolved by removing ''
+     https://github.com/webpack/webpack/issues/3043 */
+    extensions: ['.js', '.jsx']
   },
   output: {
     path: __dirname + '/dist',
-    publicPath: '/',
+    publicPath:  '/',
     filename: 'bundle.js'
   },
   devServer: {
-    contentBase: './dist'
-  }
+    contentBase: './dist',
+    hot: true
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };
