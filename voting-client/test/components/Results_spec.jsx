@@ -6,16 +6,16 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import {List, Map} from 'immutable';
-import Results from '../../src/components/Results';
+import {ScoreCard} from '../../src/components/ScoreCard';
 import {expect} from 'chai';
 
-describe('Results', () => {
+describe('ScoreCard', () => {
 
   it('renders entries with vote counts or zero', () => {
     const pair = List.of('Trainspotting', '28 Days Later');
     const tally = Map({'Trainspotting': 5});
     const component = renderIntoDocument(
-      <Results pair={pair} tally={tally} />
+      <ScoreCard pair={pair} tally={tally} />
     );
     const entries = scryRenderedDOMComponentsWithClass(component, 'entry');
     const [train, days] = entries.map(e => e.textContent);
@@ -33,7 +33,7 @@ describe('Results', () => {
 
     const pair = List.of('Trainspotting', '28 Days Later');
     const component = renderIntoDocument(
-      <Results pair={pair}
+      <ScoreCard pair={pair}
                tally={Map()}
                next={next}/>
     );
@@ -44,7 +44,7 @@ describe('Results', () => {
 
   it('renders the winner when there is one', () => {
     const component = renderIntoDocument(
-      <Results winner="Trainspotting"
+      <ScoreCard winner="Trainspotting"
               pair={["Trainspotting", "28 Days Later"]}
               tally={Map()} />
     );
